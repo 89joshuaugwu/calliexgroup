@@ -19,3 +19,5 @@ firebase-service-account.json
 *.log
 tsconfig.tsbuildinfo
 next-env.d.ts
+
+/callie-x-group
