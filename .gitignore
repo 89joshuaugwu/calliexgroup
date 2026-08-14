@@ -1,0 +1,21 @@
+# deps
+/node_modules
+
+# next
+/.next/
+/out/
+next-env.d.ts
+
+# env
+.env
+.env.local
+.env*.local
+
+# firebase admin service account (NEVER commit this)
+firebase-service-account.json
+
+# misc
+.DS_Store
+*.log
+tsconfig.tsbuildinfo
+next-env.d.ts

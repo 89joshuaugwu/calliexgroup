@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+/* ────────────────────────────────────────────────────────────────
+   Design tokens
+   Brand electric blue (#0033FF) is Callie X Group's real, existing
+   brand color — carried over deliberately, not reinvented. Everything
+   else (ink, paper, the growth-green accent) is new: a cool, precise
+   palette built for a fintech + real-estate + trade conglomerate,
+   not the warm-cream/terracotta or pure-black/neon defaults.
+   ──────────────────────────────────────────────────────────────── */
+@theme {
+  --color-brand: #0033ff;
+  --color-brand-light: #3d6bff;
+  --color-brand-dark: #0022b8;
+  --color-ink: #05060f;
+  --color-ink-soft: #0b0e22;
+  --color-paper: #f5f6fa;
+  --color-paper-warm: #eef0f8;
+  --color-graphite: #14162b;
+  --color-mist: #6b7085;
+  --color-line: #e4e6f0;
+  --color-line-dark: rgba(255, 255, 255, 0.12);
+  --color-growth: #00d68f;
+
+  /* These map to the CSS variables next/font injects on <html> in
+     app/layout.tsx (--next-font-display etc.) — kept as separate names
+     so Tailwind's `@theme` block and next/font never fight over the
+     same custom property. */
+  --font-display: var(--next-font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--next-font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--next-font-mono), ui-monospace, "SF Mono", monospace;
+
+  --shadow-card: 0 8px 32px rgba(5, 6, 15, 0.08);
+  --shadow-elevated: 0 24px 64px rgba(5, 6, 15, 0.16);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-paper);
+    color: var(--color-graphite);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .cx-shell {
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .cx-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-brand);
+    font-weight: 500;
+  }
+  .cx-eyebrow--light {
+    color: var(--color-brand-light);
+  }
+
+  /* Glass: used sparingly, and only where it encodes real depth
+     (hero metrics sitting above the video, the sticky nav once
+     scrolled) — never as blanket decoration. */
+  .cx-glass {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+  .cx-glass-light {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+  }
+
+  .cx-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1.5rem;
+    border-radius: 999px;
+    transition: transform 0.35s var(--ease-out-expo), background 0.2s, box-shadow 0.3s;
+  }
+  .cx-btn-brand {
+    background: var(--color-brand);
+    color: #fff;
+    box-shadow: 0 8px 30px rgba(0, 51, 255, 0.35);
+  }
+  .cx-btn-brand:hover {
+    background: var(--color-brand-dark);
+    transform: translateY(-2px);
+  }
+  .cx-btn-outline {
+    border: 1px solid var(--color-line-dark);
+    color: #fff;
+  }
+  .cx-btn-outline:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .cx-card-tilt {
+    transform-style: preserve-3d;
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+}
+
+@layer utilities {
+  .cx-text-balance {
+    text-wrap: balance;
+  }
+  .cx-noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Count-up numbers should not visually "jump" before JS hydrates */
+.cx-counter {
+  font-variant-numeric: tabular-nums;
+}
+
+.cx-typecursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  background: var(--color-brand-light);
+  vertical-align: text-bottom;
+  animation: cx-blink 0.9s step-end infinite;
+}
+@keyframes cx-blink {
+  50% {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cx-typecursor {
+    animation: none;
+  }
+}

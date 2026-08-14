@@ -1,0 +1,44 @@
+{
+  "name": "callie-x-group",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Callie X Group corporate site \u2014 Next.js rebuild with CMS-driven pages, Firebase, and Cloudinary.",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "seed": "tsx scripts/seed-cms.ts"
+  },
+  "dependencies": {
+    "next": "16.3.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "firebase": "^12.17.1",
+    "firebase-admin": "13.10.0",
+    "three": "^0.185.1",
+    "@react-three/fiber": "9.7.0",
+    "@react-three/drei": "10.7.8",
+    "framer-motion": "^12.4.0",
+    "lucide-react": "^1.31.0",
+    "clsx": "^2.1.1",
+    "nodemailer": "^9.0.5"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "@types/node": "^26.2.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@types/three": "^0.185.4",
+    "@types/nodemailer": "^8.0.1",
+    "tailwindcss": "^4.3.3",
+    "@tailwindcss/postcss": "^4.3.3",
+    "eslint": "^9.18.0",
+    "eslint-config-next": "16.3.1",
+    "dotenv": "^16.4.7",
+    "tsx": "^4.23.12"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}
