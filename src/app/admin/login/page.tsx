@@ -2,10 +2,11 @@
 
 import { AlertCircle, Building2, Loader2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useAdminAuth } from "@/lib/firebase/auth-context";
 
-export default function AdminLoginPage() {
+// Isolated so useSearchParams() is inside a <Suspense> boundary (required by Next.js).
+function LoginForm() {
   const { signInGoogle, signInPassword } = useAdminAuth();
   const params = useSearchParams();
   const denied = params.get("denied") === "1";
@@ -89,5 +90,13 @@ export default function AdminLoginPage() {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function AdminLoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   );
 }
