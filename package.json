@@ -2,7 +2,7 @@
   "name": "callie-x-group",
   "version": "2.0.0",
   "private": true,
-  "description": "Callie X Group corporate site \u2014 Next.js rebuild with CMS-driven pages, Firebase, and Cloudinary.",
+  "description": "Callie X Group corporate site — Next.js rebuild with CMS-driven pages, Firebase, and Cloudinary.",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -40,5 +40,11 @@
   },
   "engines": {
     "node": ">=20.9.0"
+  },
+  "allowScripts": {
+    "@firebase/util@1.15.2": true,
+    "esbuild@0.28.2": true,
+    "protobufjs@7.6.5": true,
+    "unrs-resolver@1.12.2": true
   }
 }
