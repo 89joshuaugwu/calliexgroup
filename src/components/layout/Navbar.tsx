@@ -1,6 +1,25 @@
 "use client";
 
-import { AnimatePresence, motion, useScroll, useMotionValueEvent, useSpring } from "framer-motion";
+/**
+ * Floating pill navbar — inspired by 21st.dev/sshahaider/floating-header
+ * and the scroll-detach pattern from ibelick.com.
+ *
+ * Behaviour:
+ * - On hero pages (/, /about, /contact): starts transparent and full-width,
+ *   transitions to a floating frosted-glass pill on scroll (>48px).
+ * - On non-hero pages (/products, /admin): always solid.
+ * - Scroll progress bar uses scaleX + useSpring (21st.dev/ibelick pattern).
+ * - Active page indicator dot under the current link.
+ * - Mobile: full-screen overlay menu with staggered animations.
+ */
+
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useMotionValueEvent,
+  useSpring,
+} from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,10 +34,6 @@ const LINKS = [
   { href: "/contact", label: "Contact Us" },
 ];
 
-// Routes with a full-bleed dark hero at the top get a transparent navbar
-// that solidifies on scroll. Routes without one (Products has no hero,
-// same as the original theme's "page-without-hero" case) start solid —
-// otherwise white nav text would sit unreadable on a light background.
 const HERO_ROUTES = ["/", "/about", "/contact"];
 
 export function Navbar({ brand }: { brand: BrandContent }) {
@@ -28,8 +43,7 @@ export function Navbar({ brand }: { brand: BrandContent }) {
   const [open, setOpen] = useState(false);
   const { scrollYProgress, scrollY } = useScroll();
 
-  // Scroll progress: scaleX + useSpring (GPU-composited, no layout thrash)
-  // Pattern from 21st.dev/ibelick scroll-progress component
+  // Scroll progress: scaleX + useSpring (GPU-composited)
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 200,
     damping: 50,
@@ -46,27 +60,54 @@ export function Navbar({ brand }: { brand: BrandContent }) {
   return (
     <>
       {/* Scroll progress bar */}
-      <motion.div
-        className="cx-scroll-progress"
-        style={{ scaleX }}
-      />
+      <motion.div className="cx-scroll-progress" style={{ scaleX }} />
 
-      <header
-        className="fixed inset-x-0 top-0 z-50 transition-colors duration-300"
-        style={{
-          background: solid ? "rgba(245,246,250,0.85)" : "transparent",
-          backdropFilter: solid ? "blur(14px) saturate(160%)" : "none",
-          borderBottom: solid ? "1px solid var(--color-line)" : "1px solid transparent",
+      <motion.header
+        className="fixed inset-x-0 z-50"
+        initial={false}
+        animate={{
+          top: solid ? 12 : 0,
+          paddingLeft: solid ? 16 : 0,
+          paddingRight: solid ? 16 : 0,
         }}
+        transition={{ type: "spring", stiffness: 260, damping: 28 }}
       >
-        <div className="cx-shell flex h-[72px] items-center justify-between">
-          <Link href="/" className="relative z-10 block h-8 w-[150px]">
+        <motion.div
+          className="mx-auto flex h-[60px] items-center justify-between transition-colors duration-300"
+          initial={false}
+          animate={{
+            maxWidth: solid ? 1120 : 9999,
+            borderRadius: solid ? 999 : 0,
+          }}
+          transition={{ type: "spring", stiffness: 260, damping: 28 }}
+          style={{
+            background: solid
+              ? "rgba(255, 255, 255, 0.72)"
+              : "transparent",
+            backdropFilter: solid ? "blur(16px) saturate(180%)" : "none",
+            WebkitBackdropFilter: solid ? "blur(16px) saturate(180%)" : "none",
+            border: solid
+              ? "1px solid rgba(0, 0, 0, 0.06)"
+              : "1px solid transparent",
+            boxShadow: solid
+              ? "0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04)"
+              : "none",
+            paddingLeft: solid ? 24 : 0,
+            paddingRight: solid ? 24 : 0,
+          }}
+        >
+          {/* Logo area — padded when not in pill mode */}
+          <Link
+            href="/"
+            className="relative z-10 block h-7 w-[130px]"
+            style={{ marginLeft: solid ? 0 : "max(1rem, calc((100vw - 1200px) / 2))" }}
+          >
             {brand.headerLogoUrl && (
               <Image
                 src={brand.headerLogoUrl}
                 alt="Callie X Group"
                 fill
-                sizes="150px"
+                sizes="130px"
                 className="object-contain object-left"
                 style={{ filter: solid ? "none" : "brightness(0) invert(1)" }}
                 priority
@@ -74,14 +115,18 @@ export function Navbar({ brand }: { brand: BrandContent }) {
             )}
           </Link>
 
-          <nav className="hidden items-center gap-8 md:flex">
+          {/* Desktop nav links */}
+          <nav
+            className="hidden items-center gap-7 md:flex"
+            style={{ marginRight: solid ? 0 : "max(1rem, calc((100vw - 1200px) / 2))" }}
+          >
             {LINKS.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`cx-nav-link font-mono text-[0.78rem] tracking-wide uppercase transition-colors ${isActive ? "cx-nav-link--active" : ""}`}
+                  className={`cx-nav-link font-mono text-[0.74rem] tracking-wide uppercase transition-colors ${isActive ? "cx-nav-link--active" : ""}`}
                   style={{
                     color: solid
                       ? isActive
@@ -96,28 +141,36 @@ export function Navbar({ brand }: { brand: BrandContent }) {
             })}
           </nav>
 
+          {/* Mobile hamburger */}
           <button
             type="button"
             onClick={() => setOpen(true)}
             className="relative z-10 md:hidden"
-            style={{ color: solid ? "var(--color-graphite)" : "#fff" }}
+            style={{
+              color: solid ? "var(--color-graphite)" : "#fff",
+              marginRight: solid ? 0 : "max(1rem, calc((100vw - 1200px) / 2))",
+            }}
             aria-label="Open menu"
           >
-            <Menu size={24} />
+            <Menu size={22} />
           </button>
-        </div>
-      </header>
+        </motion.div>
+      </motion.header>
 
+      {/* Mobile overlay */}
       <AnimatePresence>
         {open && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
             className="fixed inset-0 z-[60] flex flex-col bg-[var(--color-ink)] px-6 py-6 md:hidden"
           >
             <div className="flex items-center justify-between">
-              <span className="font-display text-lg font-semibold text-white">Callie X Group</span>
+              <span className="font-display text-lg font-semibold text-white">
+                Callie X Group
+              </span>
               <button type="button" onClick={() => setOpen(false)} aria-label="Close menu">
                 <X size={26} className="text-white" />
               </button>
@@ -126,9 +179,9 @@ export function Navbar({ brand }: { brand: BrandContent }) {
               {LINKS.map((link, i) => (
                 <motion.div
                   key={link.href}
-                  initial={{ opacity: 0, x: -16 }}
+                  initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 * i }}
+                  transition={{ delay: 0.06 * i, duration: 0.35 }}
                 >
                   <Link
                     href={link.href}
