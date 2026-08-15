@@ -198,27 +198,27 @@
   opacity: 0.55;
 }
 .cx-hero-orb--1 {
-  width: 55%;
-  height: 55%;
-  top: -10%;
-  left: -5%;
-  background: radial-gradient(circle, rgba(0,51,255,0.7), rgba(0,51,255,0) 70%);
+  width: 60%;
+  height: 60%;
+  top: -15%;
+  left: -8%;
+  background: radial-gradient(ellipse 80% 65% at 50% 50%, rgba(0,51,255,0.7), rgba(0,51,255,0) 72%);
   animation: cx-blob-drift-1 22s ease-in-out infinite;
 }
 .cx-hero-orb--2 {
-  width: 45%;
-  height: 50%;
-  top: 30%;
-  right: -10%;
-  background: radial-gradient(circle, rgba(61,107,255,0.6), rgba(61,107,255,0) 70%);
+  width: 50%;
+  height: 55%;
+  top: 25%;
+  right: -12%;
+  background: radial-gradient(ellipse 75% 60% at 50% 50%, rgba(61,107,255,0.6), rgba(61,107,255,0) 70%);
   animation: cx-blob-drift-2 26s ease-in-out infinite;
 }
 .cx-hero-orb--3 {
-  width: 40%;
-  height: 45%;
-  bottom: -5%;
-  left: 25%;
-  background: radial-gradient(circle, rgba(0,214,143,0.35), rgba(0,214,143,0) 70%);
+  width: 45%;
+  height: 50%;
+  bottom: -8%;
+  left: 22%;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,214,143,0.3), rgba(0,214,143,0) 68%);
   animation: cx-blob-drift-3 20s ease-in-out infinite;
 }
 @keyframes cx-blob-drift-1 {

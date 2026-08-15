@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useScroll, useMotionValueEvent, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useMotionValueEvent, useSpring } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -28,8 +28,13 @@ export function Navbar({ brand }: { brand: BrandContent }) {
   const [open, setOpen] = useState(false);
   const { scrollYProgress, scrollY } = useScroll();
 
-  // Scroll progress bar width
-  const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  // Scroll progress: scaleX + useSpring (GPU-composited, no layout thrash)
+  // Pattern from 21st.dev/ibelick scroll-progress component
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 200,
+    damping: 50,
+    restDelta: 0.001,
+  });
 
   useMotionValueEvent(scrollY, "change", (y) => {
     if (!transparentOnLoad) return;
@@ -43,7 +48,7 @@ export function Navbar({ brand }: { brand: BrandContent }) {
       {/* Scroll progress bar */}
       <motion.div
         className="cx-scroll-progress"
-        style={{ width: progressWidth }}
+        style={{ scaleX }}
       />
 
       <header
