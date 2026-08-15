@@ -35,7 +35,7 @@ function RollingDigit({ digit, delay }: { digit: number; delay: number }) {
   );
 }
 
-export function Counter({ value, duration = 1.6 }: { value: string; duration?: number }) {
+export function Counter({ value }: { value: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
 
