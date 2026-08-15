@@ -34,12 +34,12 @@ const LINKS = [
   { href: "/contact", label: "Contact Us" },
 ];
 
-const HERO_ROUTES = ["/", "/about", "/contact"];
+const HERO_ROUTES = ["/", "/about", "/products", "/contact"];
 
 export function Navbar({ brand }: { brand: BrandContent }) {
   const pathname = usePathname();
   const transparentOnLoad = HERO_ROUTES.includes(pathname);
-  const [scrolled, setScrolled] = useState(!transparentOnLoad);
+  const [scrollYOver48, setScrollYOver48] = useState(false);
   const [open, setOpen] = useState(false);
   const { scrollYProgress, scrollY } = useScroll();
 
@@ -51,11 +51,10 @@ export function Navbar({ brand }: { brand: BrandContent }) {
   });
 
   useMotionValueEvent(scrollY, "change", (y) => {
-    if (!transparentOnLoad) return;
-    setScrolled(y > 48);
+    setScrollYOver48(y > 48);
   });
 
-  const solid = scrolled || open;
+  const solid = !transparentOnLoad || scrollYOver48 || open;
 
   return (
     <>
