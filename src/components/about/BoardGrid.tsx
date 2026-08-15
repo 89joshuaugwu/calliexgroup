@@ -46,7 +46,7 @@ function BoardCard({ member }: { member: AboutContent["board"][number] }) {
           <p className="font-display text-lg font-semibold text-white">{member.name}</p>
           <p className="text-sm text-[var(--color-brand-light)]">{member.role}</p>
         </div>
-        <div className="absolute inset-0 flex translate-y-4 flex-col justify-end gap-1.5 bg-[var(--color-ink)]/92 p-5 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100">
+        <div className="absolute inset-0 flex translate-y-4 flex-col justify-end gap-1.5 p-5 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100" style={{ background: "rgba(5,6,15,0.92)" }}>
           <p className="font-display text-lg font-semibold text-white">{member.name}</p>
           <p className="mb-2 text-sm text-[var(--color-brand-light)]">{member.role}</p>
           {member.email && (

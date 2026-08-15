@@ -1,18 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
 import { ArrowRight } from "lucide-react";
 import type { HomeContent } from "@/lib/cms/types";
+import { HeroBackground } from "./HeroBackground";
 import { useTypewriter } from "./useTypewriter";
-
-// The Canvas must never render on the server (no WebGL context there),
-// and pulling three.js into the initial server bundle would be dead
-// weight — dynamic + ssr:false keeps it fully client-side and code-split.
-const Hero3D = dynamic(() => import("./Hero3D").then((m) => m.Hero3D), {
-  ssr: false,
-  loading: () => null,
-});
 
 export function HeroSection({ hero, metrics }: { hero: HomeContent["hero"]; metrics: HomeContent["metrics"] }) {
   const typed = useTypewriter(hero.subtitle, { speed: 18, startDelay: 700 });
@@ -39,7 +31,7 @@ export function HeroSection({ hero, metrics }: { hero: HomeContent["hero"]; metr
         style={{ background: "radial-gradient(120% 90% at 50% 15%, rgba(5,6,15,0.15), rgba(5,6,15,0.92) 75%)" }}
       />
 
-      <Hero3D />
+      <HeroBackground />
 
       <div className="cx-shell relative flex flex-1 flex-col items-center justify-center pt-32 pb-16 text-center">
         <motion.h1

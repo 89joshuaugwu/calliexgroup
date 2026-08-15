@@ -177,3 +177,237 @@
     animation: none;
   }
 }
+
+/* ────────────────────────────────────────────────────────────────
+   Hero animated background
+   Three blurred gradient orbs that slowly drift on GPU-composited
+   transforms, creating a living, organic backdrop.
+   ──────────────────────────────────────────────────────────────── */
+.cx-hero-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.cx-hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  mix-blend-mode: screen;
+  will-change: transform;
+  opacity: 0.55;
+}
+.cx-hero-orb--1 {
+  width: 55%;
+  height: 55%;
+  top: -10%;
+  left: -5%;
+  background: radial-gradient(circle, rgba(0,51,255,0.7), rgba(0,51,255,0) 70%);
+  animation: cx-blob-drift-1 22s ease-in-out infinite;
+}
+.cx-hero-orb--2 {
+  width: 45%;
+  height: 50%;
+  top: 30%;
+  right: -10%;
+  background: radial-gradient(circle, rgba(61,107,255,0.6), rgba(61,107,255,0) 70%);
+  animation: cx-blob-drift-2 26s ease-in-out infinite;
+}
+.cx-hero-orb--3 {
+  width: 40%;
+  height: 45%;
+  bottom: -5%;
+  left: 25%;
+  background: radial-gradient(circle, rgba(0,214,143,0.35), rgba(0,214,143,0) 70%);
+  animation: cx-blob-drift-3 20s ease-in-out infinite;
+}
+@keyframes cx-blob-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(8%, 12%) scale(1.08); }
+  66% { transform: translate(-5%, 5%) scale(0.95); }
+}
+@keyframes cx-blob-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-10%, -8%) scale(1.05); }
+  66% { transform: translate(6%, 10%) scale(0.92); }
+}
+@keyframes cx-blob-drift-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(12%, -6%) scale(1.1); }
+  66% { transform: translate(-8%, -3%) scale(0.97); }
+}
+
+/* Floating particles (pure CSS) */
+.cx-hero-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.cx-hero-dot {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  will-change: transform, opacity;
+  animation: cx-dot-float 16s ease-in-out infinite;
+}
+@keyframes cx-dot-float {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 0.5; }
+  50% { transform: translateY(-120px) translateX(30px); opacity: 0.3; }
+  90% { opacity: 0; }
+  100% { transform: translateY(-200px) translateX(-20px); }
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Product card gradient border shimmer on hover
+   ──────────────────────────────────────────────────────────────── */
+.cx-card-shimmer {
+  position: relative;
+}
+.cx-card-shimmer::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--color-brand), var(--color-brand-light), var(--color-growth), var(--color-brand));
+  background-size: 300% 300%;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: -1;
+}
+.cx-card-shimmer:hover::before {
+  opacity: 1;
+  animation: cx-shimmer 3s linear infinite;
+}
+@keyframes cx-shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Active nav indicator
+   ──────────────────────────────────────────────────────────────── */
+.cx-nav-link { position: relative; }
+.cx-nav-link--active::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-brand);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Scroll progress bar
+   ──────────────────────────────────────────────────────────────── */
+.cx-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-brand), var(--color-brand-light));
+  transform-origin: left;
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Slide scroll indicators
+   ──────────────────────────────────────────────────────────────── */
+.cx-scroll-fade {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  background: linear-gradient(90deg, transparent, var(--color-paper));
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Button focus ring (accessibility)
+   ──────────────────────────────────────────────────────────────── */
+.cx-btn:focus-visible {
+  outline: 2px solid var(--color-brand-light);
+  outline-offset: 3px;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Back-to-top button
+   ──────────────────────────────────────────────────────────────── */
+.cx-back-to-top {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.6);
+  transition: border-color 0.3s, color 0.3s, transform 0.3s var(--ease-out-expo);
+  cursor: pointer;
+  background: none;
+}
+.cx-back-to-top:hover {
+  border-color: var(--color-brand-light);
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Social glow hover
+   ──────────────────────────────────────────────────────────────── */
+.cx-social-glow:hover {
+  box-shadow: 0 0 12px rgba(61, 107, 255, 0.4);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Spinner (referenced in admin login but was missing)
+   ──────────────────────────────────────────────────────────────── */
+.cx-spin {
+  animation: cx-spin-kf 0.8s linear infinite;
+}
+@keyframes cx-spin-kf {
+  to { transform: rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cx-hero-orb,
+  .cx-hero-dot,
+  .cx-spin {
+    animation: none;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Breadcrumb
+   ──────────────────────────────────────────────────────────────── */
+.cx-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.cx-breadcrumb a {
+  color: rgba(255, 255, 255, 0.55);
+  transition: color 0.2s;
+}
+.cx-breadcrumb a:hover {
+  color: #fff;
+}
+.cx-breadcrumb__sep {
+  color: rgba(255, 255, 255, 0.3);
+}
+.cx-breadcrumb__current {
+  color: var(--color-brand-light);
+}

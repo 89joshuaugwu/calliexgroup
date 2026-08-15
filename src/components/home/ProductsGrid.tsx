@@ -29,13 +29,13 @@ export function ProductsGrid({
           <motion.div key={product.id} variants={revealItemVariants}>
             <Link
               href={product.embedLink || "/products"}
-              className="group relative flex aspect-square flex-col items-center justify-center gap-3 rounded-2xl border border-[var(--color-line)] bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-brand)] hover:shadow-[var(--shadow-card)]"
+              className="cx-card-shimmer group relative flex aspect-square flex-col items-center justify-center gap-3 rounded-2xl border border-[var(--color-line)] bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-card)]"
             >
               <div className="relative h-12 w-12 shrink-0">
                 {product.logoUrl ? (
                   <Image src={product.logoUrl} alt={product.name} fill sizes="48px" className="object-contain" />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center rounded-xl bg-[var(--color-paper-warm)] font-display text-lg font-semibold text-[var(--color-brand)]">
+                  <div className="flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-[var(--color-brand)] to-[var(--color-brand-light)] font-display text-lg font-semibold text-white shadow-[0_4px_12px_rgba(0,51,255,0.3)]">
                     {product.name.charAt(0)}
                   </div>
                 )}

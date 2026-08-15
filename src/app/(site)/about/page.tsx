@@ -14,7 +14,7 @@ export default async function AboutPage() {
 
   return (
     <main>
-      <PageHero title={about.hero.title} imageUrl={about.hero.bgPosterUrl} />
+      <PageHero title={about.hero.title} imageUrl={about.hero.bgPosterUrl} eyebrow="About Us" />
       <MissionVision mission={about.mission} vision={about.vision} />
 
       <section className="bg-[var(--color-paper-warm)] py-24 sm:py-28">

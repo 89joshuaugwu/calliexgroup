@@ -1,4 +1,6 @@
-import { Mail, Phone } from "lucide-react";
+"use client";
+
+import { ArrowUp, Mail, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import type { BrandContent } from "@/lib/cms/types";
@@ -28,6 +30,19 @@ function LinkedinIcon() {
     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M6.94 8.5H3.56V20.4h3.38V8.5ZM5.25 3.1a1.96 1.96 0 1 0 0 3.92 1.96 1.96 0 0 0 0-3.92ZM20.44 20.4h-3.37v-6.24c0-1.49-.03-3.4-2.07-3.4-2.08 0-2.4 1.62-2.4 3.3v6.34H9.24V8.5h3.23v1.63h.05c.45-.85 1.56-1.75 3.21-1.75 3.43 0 4.06 2.26 4.06 5.2v6.82Z" />
     </svg>
+  );
+}
+
+function SocialLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="cx-social-glow flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/70 transition-all hover:border-[var(--color-brand-light)] hover:text-white"
+    >
+      {children}
+    </a>
   );
 }
 
@@ -100,22 +115,19 @@ export function Footer({ brand }: { brand: BrandContent }) {
 
         <div className="mt-16 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
           <span>{brand.copyrightText}</span>
-          <span className="font-mono">Fintech \u00b7 Real Estate \u00b7 Trade \u00b7 Lifestyle</span>
+          <div className="flex items-center gap-4">
+            <span className="font-mono">Fintech &middot; Real Estate &middot; Trade &middot; Lifestyle</span>
+            <button
+              type="button"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="cx-back-to-top"
+              aria-label="Back to top"
+            >
+              <ArrowUp size={16} />
+            </button>
+          </div>
         </div>
       </div>
     </footer>
-  );
-}
-
-function SocialLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-[var(--color-brand-light)] hover:text-white"
-    >
-      {children}
-    </a>
   );
 }

@@ -48,6 +48,7 @@ export function NewsletterBox({ data }: { data: ContactContent["newsletter"] }) 
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               className="mt-7 flex flex-col items-center gap-2 text-white"
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <CheckCircle2 size={28} />
               <p className="font-medium">{data.successTitle}</p>
@@ -61,7 +62,7 @@ export function NewsletterBox({ data }: { data: ContactContent["newsletter"] }) 
                 placeholder="you@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="cx-glass w-full flex-1 rounded-full px-5 py-3 text-sm text-white placeholder:text-white/60 focus:outline-none"
+                className="w-full flex-1 rounded-full border border-white/30 bg-white/15 px-5 py-3 text-sm text-white placeholder:text-white/50 backdrop-blur-sm focus:border-white/60 focus:outline-none focus:ring-2 focus:ring-white/20"
               />
               <button
                 type="submit"

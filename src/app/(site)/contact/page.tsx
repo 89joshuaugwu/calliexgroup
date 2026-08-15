@@ -10,7 +10,7 @@ export default async function ContactPage() {
 
   return (
     <main>
-      <PageHero title={contact.hero.title} imageUrl={contact.hero.bgPosterUrl} />
+      <PageHero title={contact.hero.title} imageUrl={contact.hero.bgPosterUrl} eyebrow="Contact" />
       <OfficesGrid data={{ ...contact.hero, offices: contact.offices }} />
       <NewsletterBox data={contact.newsletter} />
     </main>

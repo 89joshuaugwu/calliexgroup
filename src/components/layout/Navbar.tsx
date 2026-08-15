@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useMotionValueEvent, useTransform } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,7 +26,10 @@ export function Navbar({ brand }: { brand: BrandContent }) {
   const transparentOnLoad = HERO_ROUTES.includes(pathname);
   const [scrolled, setScrolled] = useState(!transparentOnLoad);
   const [open, setOpen] = useState(false);
-  const { scrollY } = useScroll();
+  const { scrollYProgress, scrollY } = useScroll();
+
+  // Scroll progress bar width
+  const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   useMotionValueEvent(scrollY, "change", (y) => {
     if (!transparentOnLoad) return;
@@ -37,6 +40,12 @@ export function Navbar({ brand }: { brand: BrandContent }) {
 
   return (
     <>
+      {/* Scroll progress bar */}
+      <motion.div
+        className="cx-scroll-progress"
+        style={{ width: progressWidth }}
+      />
+
       <header
         className="fixed inset-x-0 top-0 z-50 transition-colors duration-300"
         style={{
@@ -61,22 +70,25 @@ export function Navbar({ brand }: { brand: BrandContent }) {
           </Link>
 
           <nav className="hidden items-center gap-8 md:flex">
-            {LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="font-mono text-[0.78rem] tracking-wide uppercase transition-colors"
-                style={{
-                  color: solid
-                    ? pathname === link.href
-                      ? "var(--color-brand)"
-                      : "var(--color-graphite)"
-                    : "rgba(255,255,255,0.92)",
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {LINKS.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`cx-nav-link font-mono text-[0.78rem] tracking-wide uppercase transition-colors ${isActive ? "cx-nav-link--active" : ""}`}
+                  style={{
+                    color: solid
+                      ? isActive
+                        ? "var(--color-brand)"
+                        : "var(--color-graphite)"
+                      : "rgba(255,255,255,0.92)",
+                  }}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
 
           <button
@@ -116,7 +128,7 @@ export function Navbar({ brand }: { brand: BrandContent }) {
                   <Link
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="block border-b border-white/10 py-4 font-display text-3xl text-white"
+                    className={`block border-b border-white/10 py-4 font-display text-3xl ${pathname === link.href ? "text-[var(--color-brand-light)]" : "text-white"}`}
                   >
                     {link.label}
                   </Link>
