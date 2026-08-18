@@ -1,10 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // three.js ships as an ES module tree that Next needs to transpile
-  // (required for @react-three/fiber / @react-three/drei on the App Router).
-  transpilePackages: ["three"],
-
   images: {
     remotePatterns: [
       {

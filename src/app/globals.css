@@ -4,9 +4,13 @@
    Design tokens
    Brand electric blue (#0033FF) is Callie X Group's real, existing
    brand color — carried over deliberately, not reinvented. Everything
-   else (ink, paper, the growth-green accent) is new: a cool, precise
-   palette built for a fintech + real-estate + trade conglomerate,
-   not the warm-cream/terracotta or pure-black/neon defaults.
+   else (ink, paper, the growth-green accent) is a cool, precise
+   palette built for a fintech + real-estate + trade conglomerate.
+
+   Radius scale — exactly 3 values, sitewide, no exceptions:
+     --radius-badge  chips, tags, small icon tiles, inputs
+     --radius-card   the one card/panel/image radius — everything else
+     rounded-full    pills, avatars, circular buttons (Tailwind built-in)
    ──────────────────────────────────────────────────────────────── */
 @theme {
   --color-brand: #0033ff;
@@ -34,6 +38,9 @@
   --shadow-elevated: 0 24px 64px rgba(5, 6, 15, 0.16);
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --radius-badge: 0.75rem;
+  --radius-card: 1.75rem;
 }
 
 @layer base {
@@ -92,7 +99,9 @@
 
   /* Glass: used sparingly, and only where it encodes real depth
      (hero metrics sitting above the video, the sticky nav once
-     scrolled) — never as blanket decoration. */
+     scrolled) — never as blanket decoration. Kept at 90%+ opacity
+     so it reads as "frosted-solid," not "see-through," against
+     whatever the visitor is scrolling past underneath it. */
   .cx-glass {
     background: rgba(255, 255, 255, 0.06);
     -webkit-backdrop-filter: blur(16px) saturate(140%);
@@ -100,7 +109,7 @@
     border: 1px solid rgba(255, 255, 255, 0.14);
   }
   .cx-glass-light {
-    background: rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.92);
     -webkit-backdrop-filter: blur(16px) saturate(160%);
     backdrop-filter: blur(16px) saturate(160%);
     border: 1px solid rgba(255, 255, 255, 0.6);
@@ -136,9 +145,27 @@
     transform: translateY(-2px);
   }
 
+  /* The ONE signature card interaction — reserved for leadership
+     portraits (BoardGrid), where a physical, tactile response to the
+     cursor actually suits "meet the people." Every other card on the
+     site uses a plain, quiet hover (border + shadow only) so this one
+     still reads as deliberate instead of a reflex applied everywhere. */
   .cx-card-tilt {
     transform-style: preserve-3d;
     transition: transform 0.4s var(--ease-out-expo);
+  }
+
+  /* Quiet, restrained hover for ordinary content cards (products,
+     offices, core values). Border tints toward brand, card lifts 3px,
+     shadow deepens slightly. No glow, no shimmer, no rotation. */
+  .cx-card {
+    border-radius: var(--radius-card);
+    transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s, border-color 0.3s;
+  }
+  .cx-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-brand-light);
+    box-shadow: var(--shadow-elevated);
   }
 }
 
@@ -180,116 +207,6 @@
   .cx-typecursor {
     animation: none;
   }
-}
-
-/* ────────────────────────────────────────────────────────────────
-   Hero animated background
-   Three blurred gradient orbs that slowly drift on GPU-composited
-   transforms, creating a living, organic backdrop.
-   ──────────────────────────────────────────────────────────────── */
-.cx-hero-bg {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-.cx-hero-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  mix-blend-mode: screen;
-  will-change: transform;
-  opacity: 0.55;
-}
-.cx-hero-orb--1 {
-  width: 60%;
-  height: 60%;
-  top: -15%;
-  left: -8%;
-  background: radial-gradient(ellipse 80% 65% at 50% 50%, rgba(0,51,255,0.7), rgba(0,51,255,0) 72%);
-  animation: cx-blob-drift-1 22s ease-in-out infinite;
-}
-.cx-hero-orb--2 {
-  width: 50%;
-  height: 55%;
-  top: 25%;
-  right: -12%;
-  background: radial-gradient(ellipse 75% 60% at 50% 50%, rgba(61,107,255,0.6), rgba(61,107,255,0) 70%);
-  animation: cx-blob-drift-2 26s ease-in-out infinite;
-}
-.cx-hero-orb--3 {
-  width: 45%;
-  height: 50%;
-  bottom: -8%;
-  left: 22%;
-  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,214,143,0.3), rgba(0,214,143,0) 68%);
-  animation: cx-blob-drift-3 20s ease-in-out infinite;
-}
-@keyframes cx-blob-drift-1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(8%, 12%) scale(1.08); }
-  66% { transform: translate(-5%, 5%) scale(0.95); }
-}
-@keyframes cx-blob-drift-2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(-10%, -8%) scale(1.05); }
-  66% { transform: translate(6%, 10%) scale(0.92); }
-}
-@keyframes cx-blob-drift-3 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(12%, -6%) scale(1.1); }
-  66% { transform: translate(-8%, -3%) scale(0.97); }
-}
-
-/* Floating particles (pure CSS) */
-.cx-hero-particles {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-.cx-hero-dot {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.35);
-  will-change: transform, opacity;
-  animation: cx-dot-float 16s ease-in-out infinite;
-}
-@keyframes cx-dot-float {
-  0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
-  10% { opacity: 0.5; }
-  50% { transform: translateY(-120px) translateX(30px); opacity: 0.3; }
-  90% { opacity: 0; }
-  100% { transform: translateY(-200px) translateX(-20px); }
-}
-
-/* ────────────────────────────────────────────────────────────────
-   Product card gradient border shimmer on hover
-   ──────────────────────────────────────────────────────────────── */
-.cx-card-shimmer {
-  position: relative;
-}
-.cx-card-shimmer::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: linear-gradient(135deg, var(--color-brand), var(--color-brand-light), var(--color-growth), var(--color-brand));
-  background-size: 300% 300%;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  z-index: -1;
-}
-.cx-card-shimmer:hover::before {
-  opacity: 1;
-  animation: cx-shimmer 3s linear infinite;
-}
-@keyframes cx-shimmer {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
 }
 
 /* ────────────────────────────────────────────────────────────────
@@ -365,16 +282,21 @@
   color: #fff;
   transform: translateY(-3px);
 }
-
-/* ────────────────────────────────────────────────────────────────
-   Social glow hover
-   ──────────────────────────────────────────────────────────────── */
-.cx-social-glow:hover {
-  box-shadow: 0 0 12px rgba(61, 107, 255, 0.4);
+.cx-back-to-top:focus-visible {
+  outline: 2px solid var(--color-brand-light);
+  outline-offset: 3px;
 }
 
 /* ────────────────────────────────────────────────────────────────
-   Spinner (referenced in admin login but was missing)
+   Quiet social-icon hover — color/border shift only, no glow
+   ──────────────────────────────────────────────────────────────── */
+.cx-social:hover {
+  border-color: var(--color-brand-light);
+  color: #fff;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Spinner
    ──────────────────────────────────────────────────────────────── */
 .cx-spin {
   animation: cx-spin-kf 0.8s linear infinite;
@@ -383,8 +305,6 @@
   to { transform: rotate(360deg); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .cx-hero-orb,
-  .cx-hero-dot,
   .cx-spin {
     animation: none;
   }

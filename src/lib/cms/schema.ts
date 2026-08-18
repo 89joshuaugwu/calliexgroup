@@ -102,7 +102,7 @@ export const HOME_SCHEMA: PageSchema = {
     {
       id: "products",
       title: "Products grid",
-      description: "The portfolio-company grid (B Cars, Dolla, Jetpay, etc). Each card links to /products.",
+      description: "The portfolio-company grid (B Cars, Dolla, Jetpay, etc). Each card links to /products, and the same data powers the full catalog cards on the Products page.",
       fields: [
         { type: "text", key: "productsSectionTitle", label: "Section title" },
         {
@@ -114,8 +114,22 @@ export const HOME_SCHEMA: PageSchema = {
             { type: "text", key: "name", label: "Product name" },
             { type: "image", key: "logoUrl", label: "Logo (square, transparent PNG)" },
             { type: "url", key: "embedLink", label: "Link" },
+            { type: "text", key: "category", label: "Category", hint: "Must be exactly: Fintech & Crypto, Real Estate & Auto, or Lifestyle & Commerce — powers the catalog filter tabs" },
+            { type: "text", key: "tagline", label: "Tagline" },
+            { type: "textarea", key: "description", label: "Description" },
+            { type: "text", key: "highlights", label: "Highlights", hint: "Up to 3 short phrases separated by | — e.g. Instant settlement|Zero downtime|Over 100+ billers" },
           ],
-          emptyItem: () => ({ id: idNow("product"), order: 0, name: "", logoUrl: "", embedLink: "/products" }),
+          emptyItem: () => ({
+            id: idNow("product"),
+            order: 0,
+            name: "",
+            logoUrl: "",
+            embedLink: "/products",
+            category: "Fintech & Crypto",
+            tagline: "",
+            description: "",
+            highlights: "",
+          }),
         },
       ],
     },

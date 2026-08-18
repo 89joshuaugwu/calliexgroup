@@ -7,7 +7,10 @@ import { PageHero } from "@/components/layout/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { getPageContent } from "@/lib/cms/content";
 
-export const metadata = { title: "About" };
+export const metadata = {
+  title: "About",
+  description: "Founded in 2019, Callie X Group is a Nigerian fintech and investment conglomerate spanning crypto, real estate, and lifestyle commerce. Meet the board, our history, and the values behind it.",
+};
 
 export default async function AboutPage() {
   const about = await getPageContent("about");

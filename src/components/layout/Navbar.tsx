@@ -1,16 +1,19 @@
 "use client";
 
 /**
- * Floating pill navbar — inspired by 21st.dev/sshahaider/floating-header
- * and the scroll-detach pattern from ibelick.com.
+ * Floating pill navbar.
  *
  * Behaviour:
  * - On hero pages (/, /about, /contact): starts transparent and full-width,
- *   transitions to a floating frosted-glass pill on scroll (>48px).
+ *   transitions to a floating pill on scroll (>48px).
  * - On non-hero pages (/products, /admin): always solid.
- * - Scroll progress bar uses scaleX + useSpring (21st.dev/ibelick pattern).
+ * - Scroll progress bar tracks read position across the page.
  * - Active page indicator dot under the current link.
- * - Mobile: full-screen overlay menu with staggered animations.
+ * - Mobile: full-screen overlay menu with staggered link reveal.
+ *
+ * The scrolled pill sits at 92% white opacity — comfortably over the
+ * 85% floor for any header meant to stay legible against whatever the
+ * visitor is scrolling past underneath it.
  */
 
 import {
@@ -43,7 +46,6 @@ export function Navbar({ brand }: { brand: BrandContent }) {
   const [open, setOpen] = useState(false);
   const { scrollYProgress, scrollY } = useScroll();
 
-  // Scroll progress: scaleX + useSpring (GPU-composited)
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 200,
     damping: 50,
@@ -58,7 +60,6 @@ export function Navbar({ brand }: { brand: BrandContent }) {
 
   return (
     <>
-      {/* Scroll progress bar */}
       <motion.div className="cx-scroll-progress" style={{ scaleX }} />
 
       <motion.header
@@ -80,9 +81,7 @@ export function Navbar({ brand }: { brand: BrandContent }) {
           }}
           transition={{ type: "spring", stiffness: 260, damping: 28 }}
           style={{
-            background: solid
-              ? "rgba(255, 255, 255, 0.72)"
-              : "transparent",
+            background: solid ? "rgba(255, 255, 255, 0.92)" : "transparent",
             backdropFilter: solid ? "blur(16px) saturate(180%)" : "none",
             WebkitBackdropFilter: solid ? "blur(16px) saturate(180%)" : "none",
             border: solid
@@ -144,7 +143,7 @@ export function Navbar({ brand }: { brand: BrandContent }) {
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="relative z-10 md:hidden"
+            className="relative z-10 rounded-full md:hidden"
             style={{
               color: solid ? "var(--color-graphite)" : "#fff",
               marginRight: solid ? 0 : "max(1rem, calc((100vw - 1200px) / 2))",
@@ -170,7 +169,12 @@ export function Navbar({ brand }: { brand: BrandContent }) {
               <span className="font-display text-lg font-semibold text-white">
                 Callie X Group
               </span>
-              <button type="button" onClick={() => setOpen(false)} aria-label="Close menu">
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="rounded-full"
+                aria-label="Close menu"
+              >
                 <X size={26} className="text-white" />
               </button>
             </div>

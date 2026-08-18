@@ -16,12 +16,21 @@ export interface Metric {
   label: string;
 }
 
+export type ProductCategory = "Fintech & Crypto" | "Real Estate & Auto" | "Lifestyle & Commerce";
+
 export interface Product {
   id: string;
   order: number;
   name: string;
   logoUrl: string;
   embedLink: string;
+  /** Must match one of ProductCategory exactly — used to power the catalog filter tabs. */
+  category: ProductCategory;
+  tagline: string;
+  description: string;
+  /** Pipe-separated, e.g. "Instant settlement|Zero downtime|Over 100+ billers" — same
+   *  delimited-string convention already used by innovation.headlineItalic below. */
+  highlights: string;
 }
 
 export interface ChinaService {

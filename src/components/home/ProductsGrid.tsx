@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import type { HomeContent } from "@/lib/cms/types";
 import { Reveal, RevealStagger, revealItemVariants } from "@/components/ui/Reveal";
-import { TiltCard } from "@/components/ui/TiltCard";
 
 export function ProductsGrid({
   title,
@@ -28,25 +27,23 @@ export function ProductsGrid({
       <RevealStagger className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
         {sorted.map((product) => (
           <motion.div key={product.id} variants={revealItemVariants}>
-            <TiltCard tiltDeg={6}>
-              <Link
-                href={product.embedLink || "/products"}
-                className="cx-card-shimmer group relative flex aspect-square flex-col items-center justify-center gap-3 rounded-2xl border border-[var(--color-line)] bg-white p-5 transition-all duration-300 hover:shadow-[var(--shadow-card)]"
-              >
-                <div className="relative h-12 w-12 shrink-0">
-                  {product.logoUrl ? (
-                    <Image src={product.logoUrl} alt={product.name} fill sizes="48px" className="object-contain" />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-[var(--color-brand)] to-[var(--color-brand-light)] font-display text-lg font-semibold text-white shadow-[0_4px_12px_rgba(0,51,255,0.3)]">
-                      {product.name.charAt(0)}
-                    </div>
-                  )}
-                </div>
-                <span className="text-center text-sm font-medium text-[var(--color-graphite)] transition-colors group-hover:text-[var(--color-brand)]">
-                  {product.name}
-                </span>
-              </Link>
-            </TiltCard>
+            <Link
+              href={product.embedLink || "/products"}
+              className="cx-card group relative flex aspect-square flex-col items-center justify-center gap-3 border border-[var(--color-line)] bg-white p-5"
+            >
+              <div className="relative h-12 w-12 shrink-0">
+                {product.logoUrl ? (
+                  <Image src={product.logoUrl} alt={product.name} fill sizes="48px" className="object-contain" />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-[var(--color-brand)] to-[var(--color-brand-light)] font-display text-lg font-semibold text-white">
+                    {product.name.charAt(0)}
+                  </div>
+                )}
+              </div>
+              <span className="text-center text-sm font-medium text-[var(--color-graphite)] transition-colors group-hover:text-[var(--color-brand)]">
+                {product.name}
+              </span>
+            </Link>
           </motion.div>
         ))}
       </RevealStagger>

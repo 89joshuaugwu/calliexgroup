@@ -6,7 +6,15 @@ import type { HomeContent } from "@/lib/cms/types";
 import { HeroBackground } from "./HeroBackground";
 import { useTypewriter } from "./useTypewriter";
 
-export function HeroSection({ hero, metrics }: { hero: HomeContent["hero"]; metrics: HomeContent["metrics"] }) {
+export function HeroSection({
+  hero,
+  metrics,
+  products,
+}: {
+  hero: HomeContent["hero"];
+  metrics: HomeContent["metrics"];
+  products: HomeContent["products"];
+}) {
   const typed = useTypewriter(hero.subtitle, { speed: 18, startDelay: 700 });
   const sorted = [...metrics].sort((a, b) => a.order - b.order);
 
@@ -31,7 +39,7 @@ export function HeroSection({ hero, metrics }: { hero: HomeContent["hero"]; metr
         style={{ background: "radial-gradient(120% 90% at 50% 15%, rgba(5,6,15,0.15), rgba(5,6,15,0.92) 75%)" }}
       />
 
-      <HeroBackground />
+      <HeroBackground products={products} />
 
       <div className="cx-shell relative flex flex-1 flex-col items-center justify-center pt-32 pb-16 text-center">
         <motion.h1
@@ -71,7 +79,7 @@ export function HeroSection({ hero, metrics }: { hero: HomeContent["hero"]; metr
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="cx-glass flex flex-col items-center gap-1 border-0 bg-transparent px-4 py-7 text-center backdrop-blur-none"
+              className="flex flex-col items-center gap-1 px-4 py-7 text-center"
             >
               <span className="font-display text-[clamp(1.7rem,3.4vw,2.4rem)] font-semibold text-white">
                 {metric.value}

@@ -12,7 +12,7 @@ export default async function HomePage() {
 
   return (
     <main>
-      <HeroSection hero={home.hero} metrics={home.metrics} />
+      <HeroSection hero={home.hero} metrics={home.metrics} products={home.products} />
       <ProductsGrid title={home.productsSectionTitle} products={home.products} />
       <InnovationSection data={home.innovation} />
       <PaymentBand data={home.paymentBand} />
