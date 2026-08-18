@@ -23,7 +23,7 @@ export function Awards({ eyebrow, data }: { eyebrow: string; data: AboutContent[
             <motion.div
               key={i}
               variants={revealItemVariants}
-              className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]"
+              className="overflow-hidden rounded-[var(--radius-card)] border border-white/10 bg-white/[0.03]"
             >
               <div className="relative aspect-[4/3]">
                 {item.imageUrl && <Image src={item.imageUrl} alt={item.title} fill sizes="360px" className="object-cover" />}

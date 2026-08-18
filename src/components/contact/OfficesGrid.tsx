@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { Mail, MapPin, Phone, Building2 } from "lucide-react";
 import type { ContactContent } from "@/lib/cms/types";
 import { Reveal, RevealStagger, revealItemVariants } from "@/components/ui/Reveal";
-import { TiltCard } from "@/components/ui/TiltCard";
 import { formatPhoneHref } from "@/lib/utils";
 
 export function OfficesGrid({ data }: { data: ContactContent["hero"] & { offices: ContactContent["offices"] } }) {
@@ -27,64 +26,62 @@ export function OfficesGrid({ data }: { data: ContactContent["hero"] & { offices
 
           return (
             <motion.div key={office.id} variants={revealItemVariants} className="h-full">
-              <TiltCard tiltDeg={5} className="h-full">
-                <div className="cx-card-shimmer group relative flex h-full flex-col justify-between rounded-3xl border border-[var(--color-line)] bg-white p-7 shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-[var(--shadow-elevated)]">
-                  <div>
-                    {/* Header */}
-                    <div className="mb-4 flex items-start justify-between gap-3">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-brand)]/8 text-[var(--color-brand)]">
-                          <Building2 size={18} />
-                        </div>
-                        <h3 className="font-display text-[1.05rem] font-bold text-[var(--color-graphite)] group-hover:text-[var(--color-brand)] transition-colors">
-                          {office.name}
-                        </h3>
+              <div className="cx-card group flex h-full flex-col justify-between border border-[var(--color-line)] bg-white p-7 shadow-[var(--shadow-card)]">
+                <div>
+                  {/* Header */}
+                  <div className="mb-4 flex items-start justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-badge)] bg-[var(--color-brand)]/8 text-[var(--color-brand)]">
+                        <Building2 size={18} />
                       </div>
-                      {office.badge && (
-                        <span
-                          className={`shrink-0 rounded-full px-3 py-0.5 font-mono text-[0.65rem] font-bold uppercase tracking-wider ${
-                            isHQ
-                              ? "bg-gradient-to-r from-[var(--color-brand)] to-[var(--color-brand-light)] text-white shadow-[0_2px_8px_rgba(0,51,255,0.3)]"
-                              : isINT
+                      <h3 className="font-display text-[1.05rem] font-bold text-[var(--color-graphite)] transition-colors group-hover:text-[var(--color-brand)]">
+                        {office.name}
+                      </h3>
+                    </div>
+                    {office.badge && (
+                      <span
+                        className={`shrink-0 rounded-full px-3 py-0.5 font-mono text-[0.65rem] font-bold tracking-wider uppercase ${
+                          isHQ
+                            ? "bg-[var(--color-brand)] text-white"
+                            : isINT
                               ? "bg-[var(--color-growth)]/15 text-[var(--color-growth)]"
                               : "bg-[var(--color-brand)]/10 text-[var(--color-brand)]"
-                          }`}
-                        >
-                          {office.badge}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Address */}
-                    <p className="flex gap-2.5 text-sm leading-relaxed text-[var(--color-mist)]">
-                      <MapPin size={16} className="mt-0.5 shrink-0 text-[var(--color-brand)]" />
-                      <span>{office.address}</span>
-                    </p>
-                  </div>
-
-                  {/* Contact Links */}
-                  <div className="mt-6 flex flex-col gap-2 border-t border-[var(--color-line)] pt-4">
-                    {office.phone && (
-                      <a
-                        href={formatPhoneHref(office.phone)}
-                        className="inline-flex items-center gap-2 text-xs font-medium text-[var(--color-graphite)] transition-colors hover:text-[var(--color-brand)]"
+                        }`}
                       >
-                        <Phone size={13} className="text-[var(--color-brand-light)]" />
-                        <span>{office.phone}</span>
-                      </a>
-                    )}
-                    {office.email && (
-                      <a
-                        href={`mailto:${office.email}`}
-                        className="inline-flex items-center gap-2 text-xs font-medium text-[var(--color-graphite)] transition-colors hover:text-[var(--color-brand)]"
-                      >
-                        <Mail size={13} className="text-[var(--color-brand-light)]" />
-                        <span>{office.email}</span>
-                      </a>
+                        {office.badge}
+                      </span>
                     )}
                   </div>
+
+                  {/* Address */}
+                  <p className="flex gap-2.5 text-sm leading-relaxed text-[var(--color-mist)]">
+                    <MapPin size={16} className="mt-0.5 shrink-0 text-[var(--color-brand)]" />
+                    <span>{office.address}</span>
+                  </p>
                 </div>
-              </TiltCard>
+
+                {/* Contact links */}
+                <div className="mt-6 flex flex-col gap-2 border-t border-[var(--color-line)] pt-4">
+                  {office.phone && (
+                    <a
+                      href={formatPhoneHref(office.phone)}
+                      className="inline-flex items-center gap-2 text-xs font-medium text-[var(--color-graphite)] transition-colors hover:text-[var(--color-brand)]"
+                    >
+                      <Phone size={13} className="text-[var(--color-brand-light)]" />
+                      <span>{office.phone}</span>
+                    </a>
+                  )}
+                  {office.email && (
+                    <a
+                      href={`mailto:${office.email}`}
+                      className="inline-flex items-center gap-2 text-xs font-medium text-[var(--color-graphite)] transition-colors hover:text-[var(--color-brand)]"
+                    >
+                      <Mail size={13} className="text-[var(--color-brand-light)]" />
+                      <span>{office.email}</span>
+                    </a>
+                  )}
+                </div>
+              </div>
             </motion.div>
           );
         })}

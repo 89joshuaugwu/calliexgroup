@@ -16,7 +16,7 @@ export function PaymentBand({ data }: { data: HomeContent["paymentBand"] }) {
               alt=""
               fill
               sizes="380px"
-              className="rounded-[24px] object-cover shadow-[var(--shadow-elevated)]"
+              className="rounded-[var(--radius-card)] object-cover shadow-[var(--shadow-elevated)]"
             />
           )}
 
@@ -25,10 +25,10 @@ export function PaymentBand({ data }: { data: HomeContent["paymentBand"] }) {
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="cx-glass-light absolute -right-6 top-10 w-44 rounded-2xl p-4 shadow-[var(--shadow-card)]"
+            className="cx-glass-light absolute -right-6 top-10 w-44 rounded-[var(--radius-card)] p-4 shadow-[var(--shadow-card)]"
           >
             {data.mockImage2Url && (
-              <div className="relative h-16 w-full overflow-hidden rounded-lg">
+              <div className="relative h-16 w-full overflow-hidden rounded-[var(--radius-badge)]">
                 <Image src={data.mockImage2Url} alt="" fill sizes="176px" className="object-cover" />
               </div>
             )}
@@ -42,10 +42,10 @@ export function PaymentBand({ data }: { data: HomeContent["paymentBand"] }) {
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="cx-glass-light absolute -right-4 bottom-10 w-48 rounded-2xl p-4 shadow-[var(--shadow-card)]"
+            className="cx-glass-light absolute -right-4 bottom-10 w-48 rounded-[var(--radius-card)] p-4 shadow-[var(--shadow-card)]"
           >
             {data.mockImage3Url && (
-              <div className="relative h-16 w-full overflow-hidden rounded-lg">
+              <div className="relative h-16 w-full overflow-hidden rounded-[var(--radius-badge)]">
                 <Image src={data.mockImage3Url} alt="" fill sizes="192px" className="object-cover" />
               </div>
             )}

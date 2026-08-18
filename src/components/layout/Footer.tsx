@@ -39,7 +39,7 @@ function SocialLink({ href, children }: { href: string; children: React.ReactNod
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="cx-social-glow flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/70 transition-all hover:border-[var(--color-brand-light)] hover:text-white"
+      className="cx-social flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:text-white"
     >
       {children}
     </a>

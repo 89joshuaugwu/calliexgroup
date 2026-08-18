@@ -30,7 +30,7 @@ function BoardCard({ member }: { member: AboutContent["board"][number] }) {
         onPointerMove={handlePointerMove}
         onPointerLeave={reset}
         style={{ rotateX, rotateY, transformPerspective: 800 }}
-        className="cx-card-tilt group relative aspect-[3/4] overflow-hidden rounded-3xl bg-[var(--color-ink)] focus-within:ring-2 focus-within:ring-[var(--color-brand)]"
+        className="cx-card-tilt group relative aspect-[3/4] overflow-hidden rounded-[var(--radius-card)] bg-[var(--color-ink)] focus-within:ring-2 focus-within:ring-[var(--color-brand)]"
         tabIndex={0}
       >
         {member.imageUrl && (

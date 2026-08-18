@@ -8,13 +8,9 @@ export function MissionVision({ mission, vision }: { mission: AboutContent["miss
   return (
     <section className="cx-shell py-20 sm:py-28">
       <div className="grid gap-8 lg:grid-cols-2">
-        {/* Vision Card - Dark theme with brand glow */}
+        {/* Vision card — dark, flat, confident. No glow: the pill + copy carry it. */}
         <Reveal>
-          <div className="relative flex h-full flex-col justify-between overflow-hidden rounded-3xl bg-[var(--color-ink)] p-8 sm:p-12 text-white shadow-[var(--shadow-elevated)]">
-            <div
-              className="absolute -right-20 -top-20 h-64 w-64 rounded-full opacity-40 blur-3xl"
-              style={{ background: "radial-gradient(circle, var(--color-brand), transparent 70%)" }}
-            />
+          <div className="relative flex h-full flex-col justify-between overflow-hidden rounded-[var(--radius-card)] bg-[var(--color-ink)] p-8 text-white shadow-[var(--shadow-elevated)] sm:p-12">
             <div className="relative">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 font-mono text-xs font-medium text-[var(--color-brand-light)]">
                 <Compass size={14} />
@@ -36,7 +32,7 @@ export function MissionVision({ mission, vision }: { mission: AboutContent["miss
 
         {/* Mission Card - Clean elevated surface with brand points */}
         <Reveal delay={0.1}>
-          <div className="relative flex h-full flex-col justify-between rounded-3xl border border-[var(--color-line)] bg-white p-8 sm:p-12 shadow-[var(--shadow-card)]">
+          <div className="relative flex h-full flex-col justify-between rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-8 shadow-[var(--shadow-card)] sm:p-12">
             <div>
               <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)]/8 px-3.5 py-1.5 font-mono text-xs font-medium text-[var(--color-brand)]">
                 <Target size={14} />

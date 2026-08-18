@@ -28,7 +28,7 @@ export function NewsletterBox({ data }: { data: ContactContent["newsletter"] }) 
 
   return (
     <section className="cx-shell pb-24 sm:pb-28">
-      <Reveal className="relative overflow-hidden rounded-[28px] bg-[var(--color-brand)] px-8 py-14 text-center sm:px-16">
+      <Reveal className="relative overflow-hidden rounded-[var(--radius-card)] bg-[var(--color-brand)] px-8 py-14 text-center sm:px-16">
         <div
           className="absolute inset-0 opacity-30"
           style={{

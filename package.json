@@ -11,28 +11,29 @@
     "seed": "tsx scripts/seed-cms.ts"
   },
   "dependencies": {
-    "next": "16.3.1",
-    "react": "19.2.8",
-    "react-dom": "19.2.8",
+    "clsx": "^2.1.1",
     "firebase": "^12.17.1",
     "firebase-admin": "13.10.0",
     "framer-motion": "^12.4.0",
+    "isomorphic-dompurify": "^3.22.0",
     "lucide-react": "^1.31.0",
-    "clsx": "^2.1.1",
-    "nodemailer": "^9.0.5"
+    "next": "16.3.1",
+    "nodemailer": "^9.0.5",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   },
   "devDependencies": {
-    "typescript": "5.9.3",
+    "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^26.2.0",
+    "@types/nodemailer": "^8.0.1",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
-    "@types/nodemailer": "^8.0.1",
-    "tailwindcss": "^4.3.3",
-    "@tailwindcss/postcss": "^4.3.3",
+    "dotenv": "^16.4.7",
     "eslint": "^9.18.0",
     "eslint-config-next": "16.3.1",
-    "dotenv": "^16.4.7",
-    "tsx": "^4.23.12"
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.12",
+    "typescript": "5.9.3"
   },
   "engines": {
     "node": ">=20.9.0"

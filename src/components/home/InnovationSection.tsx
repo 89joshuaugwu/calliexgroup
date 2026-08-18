@@ -36,10 +36,16 @@ export function InnovationSection({ data }: { data: HomeContent["innovation"] })
   return (
     <section className="cx-shell py-8 sm:py-12">
       <Reveal>
-        <div className="grid overflow-hidden rounded-[28px] bg-white shadow-[var(--shadow-card)] md:grid-cols-2">
+        <div className="grid overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[var(--shadow-card)] md:grid-cols-2">
           <div className="relative min-h-[280px]">
             {data.imageUrl && (
-              <Image src={data.imageUrl} alt="" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+              <Image
+                src={data.imageUrl}
+                alt={`${data.headlineLine1} ${data.headlineLine2}`}
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="object-cover"
+              />
             )}
           </div>
           <div className="flex flex-col justify-center p-8 sm:p-12">

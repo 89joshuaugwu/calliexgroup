@@ -47,7 +47,7 @@ export function ChinaSection({ data }: { data: HomeContent["china"] }) {
           <h2 className="cx-text-balance font-display text-[clamp(1.9rem,4vw,2.6rem)] font-semibold text-white">
             {data.title}
           </h2>
-          <div className="relative mt-8 h-40 overflow-hidden rounded-2xl">
+          <div className="relative mt-8 h-40 overflow-hidden rounded-[var(--radius-card)]">
             {data.imageUrl && <Image src={data.imageUrl} alt="" fill sizes="480px" className="object-cover opacity-60" />}
             <div className="absolute inset-0 flex items-end p-4">
               <TradeRoute />
@@ -65,7 +65,7 @@ export function ChinaSection({ data }: { data: HomeContent["china"] }) {
                 <motion.div
                   key={service.id}
                   variants={revealItemVariants}
-                  className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-[var(--color-brand-light)]/50"
+                  className="rounded-[var(--radius-card)] border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-[var(--color-brand-light)]/50"
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-mono text-xs text-[var(--color-brand-light)]">{service.no}</span>

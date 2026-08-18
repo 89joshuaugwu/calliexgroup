@@ -62,7 +62,7 @@ export function FeatureSlides({
   return (
     <section className="py-24 sm:py-28">
       <div className="cx-shell">
-        <Reveal className="relative mb-10 overflow-hidden rounded-[28px]">
+        <Reveal className="relative mb-10 overflow-hidden rounded-[var(--radius-card)]">
           <div className="relative h-56 sm:h-64">
             {header.bannerImageUrl && (
               <Image src={header.bannerImageUrl} alt="" fill sizes="100vw" className="object-cover" />
@@ -90,7 +90,7 @@ export function FeatureSlides({
           {sorted.map((slide) => (
             <div
               key={slide.id}
-              className="relative h-[340px] w-[78vw] shrink-0 overflow-hidden rounded-3xl [scroll-snap-align:start] sm:w-[380px]"
+              className="relative h-[340px] w-[78vw] shrink-0 overflow-hidden rounded-[var(--radius-card)] [scroll-snap-align:start] sm:w-[380px]"
             >
               {slide.imageUrl && (
                 <Image
