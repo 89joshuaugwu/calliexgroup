@@ -24,13 +24,16 @@ export interface Product {
   name: string;
   logoUrl: string;
   embedLink: string;
-  /** Must match one of ProductCategory exactly — used to power the catalog filter tabs. */
-  category: ProductCategory;
-  tagline: string;
-  description: string;
+  /** All four below are optional: existing Firestore documents were saved
+   *  before these fields existed, so treat them as absent until the
+   *  migration script (scripts/migrate-product-details.ts) or an admin
+   *  edit backfills them. Never assume they're present on live data. */
+  category?: ProductCategory;
+  tagline?: string;
+  description?: string;
   /** Pipe-separated, e.g. "Instant settlement|Zero downtime|Over 100+ billers" — same
    *  delimited-string convention already used by innovation.headlineItalic below. */
-  highlights: string;
+  highlights?: string;
 }
 
 export interface ChinaService {

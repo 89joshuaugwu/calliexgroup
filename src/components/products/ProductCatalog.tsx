@@ -15,8 +15,10 @@ const CATEGORIES: readonly ("All Products" | ProductCategory)[] = [
   "Lifestyle & Commerce",
 ];
 
-/** "Instant settlement|Zero downtime|Over 100+ billers" -> 3 clean strings. */
-function parseHighlights(raw: string): string[] {
+/** "Instant settlement|Zero downtime|Over 100+ billers" -> 3 clean strings.
+ *  raw can be undefined on any product saved before this field existed. */
+function parseHighlights(raw: string | undefined): string[] {
+  if (!raw) return [];
   return raw
     .split("|")
     .map((h) => h.trim())

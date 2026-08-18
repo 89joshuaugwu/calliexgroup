@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "seed": "tsx scripts/seed-cms.ts"
+    "seed": "tsx scripts/seed-cms.ts",
+    "migrate:products": "tsx scripts/migrate-product-details.ts"
   },
   "dependencies": {
     "clsx": "^2.1.1",
